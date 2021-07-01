@@ -24,17 +24,17 @@ class VideoLibrary {
       Scanner scanner = new Scanner(file);
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
-        String[] split = line.split("\\|");
-        String title = split[0].strip();
-        String id = split[1].strip();
+        String[] split = line.split("\\|"); // ["Funny Dogs", "funny_dogs_video_id", "#dog , #animal"]
+        String title = split[0].strip();  //Funny Dogs
+        String id = split[1].strip();   //funny_dogs_video_id
         List<String> tags;
         if (split.length > 2) {
-          tags = Arrays.stream(split[2].split(",")).map(String::strip).collect(
+          tags = Arrays.stream(split[2].split(",")).map(String::strip).collect(     // ["dog", "animal"]
               Collectors.toList());
         } else {
           tags = new ArrayList<>();
         }
-        this.videos.put(id, new Video(title, id, tags));
+        this.videos.put(id, new Video(title, id, tags));    // [funny_dogs_video_id, Video["Funny Dogs", "funny_dogs_video_id", tags["#dog", "#animal"]]]
       }
     } catch (FileNotFoundException e) {
       System.out.println("Couldn't find videos.txt");
